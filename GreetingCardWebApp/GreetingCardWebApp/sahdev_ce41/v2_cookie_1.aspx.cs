@@ -7,34 +7,23 @@ using System.Web.UI.WebControls;
 
 namespace GreetingCardWebApp
 {
-    public partial class v2_simple : System.Web.UI.Page
+    public partial class v2_simple_1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
-
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
+        
+        protected void Button1_Click(object sender, EventArgs e)
         {
-            Panel1.BackColor = System.Drawing.Color.FromName(DropDownList1.SelectedItem.Text);
-        }
+            HttpCookie c = new HttpCookie("data");
+            c["color"] = DropDownList1.SelectedItem.Text;
+            c["font"] = DropDownList2.SelectedItem.Text;
+            c["font-size"] = DropDownList3.SelectedItem.Text;
+            c["border"] = DropDownList4.SelectedItem.Text;
 
-        protected void DropDownList4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (DropDownList4.SelectedIndex == 0)
-                Panel1.BorderStyle = BorderStyle.None;
-            else
-                Panel1.BorderStyle = BorderStyle.Dashed;
-        }
-
-        protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Label1.Font.Name = DropDownList2.SelectedItem.Text;
-        }
-
-        protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Label1.Font.Size=Int32.Parse(DropDownList3.SelectedItem.Text);
+            Response.Cookies.Add(c);
+            Response.Redirect("v2_cookie_2.aspx");
         }
     }
 }

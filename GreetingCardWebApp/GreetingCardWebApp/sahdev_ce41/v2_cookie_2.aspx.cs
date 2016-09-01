@@ -11,30 +11,19 @@ namespace GreetingCardWebApp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        }
-
-        protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Panel1.BackColor = System.Drawing.Color.FromName(DropDownList1.SelectedItem.Text);
-        }
-
-        protected void DropDownList4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (DropDownList4.SelectedIndex == 0)
+            HttpCookie c = Request.Cookies.Get("data");
+            Panel1.BackColor = System.Drawing.Color.FromName(c["color"]);
+            if (c["border"].Equals("None") || c["border"].Equals("none"))
+            {
                 Panel1.BorderStyle = BorderStyle.None;
+            }
             else
+            {
                 Panel1.BorderStyle = BorderStyle.Dashed;
+            }
+            Label1.Font.Name = c["font"];
+            Label1.Font.Size = Int32.Parse(c["font-size"]);
         }
 
-        protected void DropDownList2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Label1.Font.Name = DropDownList2.SelectedItem.Text;
-        }
-
-        protected void DropDownList3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Label1.Font.Size=Int32.Parse(DropDownList3.SelectedItem.Text);
-        }
     }
 }
